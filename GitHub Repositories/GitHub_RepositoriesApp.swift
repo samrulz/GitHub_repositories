@@ -12,7 +12,7 @@ struct GitHub_RepositoriesApp: App {
     private let useCase: FetchTrendingRepositoriesUseCase
 
     init() {
-        let apiClient = GitHubAPIService()
+        let apiClient = GitHubAPIClient()
         let cacheStore = DiskCacheStore()
         let repository = GitHubRepositoriesRepository(apiClient: apiClient, cacheStore: cacheStore)
         self.useCase = DefaultFetchTrendingRepositoriesUseCase(repository: repository)

@@ -11,14 +11,14 @@ import CryptoKit
 
 // Data-layer repository implementation backed by GitHub Search API + local cache.
 final class GitHubRepositoriesRepository: GithubRepositoriesRepository {
-    private let apiClient: GitHubAPIService
+    private let apiClient: GitHubAPIClient
     private let cacheStore: CacheStore
     private let queryBuilder: SearchQueryProtocol
     private let perPage: Int
     private let tokenProvider: () -> String?
 
     init(
-        apiClient: GitHubAPIService,
+        apiClient: GitHubAPIClient,
         cacheStore: CacheStore,
         queryBuilder: SearchQueryProtocol = SearchQueryBuilder(),
         perPage: Int = 20,

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol APIServiceProtocol {
+protocol APIClientProtocol {
     func fetch<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, Error>
 }
 
@@ -29,7 +29,7 @@ enum APIError: LocalizedError {
     }
 }
 
-final class GitHubAPIService: APIServiceProtocol {
+final class GitHubAPIClient: APIClientProtocol {
     private let session: URLSession
     private let decoder: JSONDecoder
 
