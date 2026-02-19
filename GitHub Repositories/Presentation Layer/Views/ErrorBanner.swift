@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ErrorBanner: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    let text: String
 
-#Preview {
-    ErrorBanner()
+    var body: some View {
+        Text(text)
+            .font(.subheadline)
+            .foregroundColor(.white)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
+            .background(Color.red.opacity(0.9))
+    }
 }

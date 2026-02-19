@@ -1,5 +1,5 @@
 //
-//  GithubRepository.swift
+//  GithubRepositoriesRepository.swift
 //  GitHub Repositories
 //
 //  Created by Sandip Musale on 18/02/26.

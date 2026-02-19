@@ -6,30 +6,37 @@
 //
 
 import XCTest
+@testable import GitHub_Repositories
 
 final class APIErrorTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // invalidResponse error description.
+    func test_invalidResponse_errorDescription() {
+        let error = APIError.invalidResponse
+        XCTAssertNotNil(error.errorDescription)
+        XCTAssertTrue(error.errorDescription!.lowercased().contains("invalid"))
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    // httpStatus error description includes the code.
+    func test_httpStatus_errorDescription_includesCode() {
+        let error = APIError.httpStatus(404)
+        XCTAssertNotNil(error.errorDescription)
+        XCTAssertTrue(error.errorDescription!.contains("404"))
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    // decodingFailed error description.
+    func test_decodingFailed_errorDescription() {
+        let error = APIError.decodingFailed
+        XCTAssertNotNil(error.errorDescription)
+        XCTAssertTrue(error.errorDescription!.lowercased().contains("decode") ||
+                      error.errorDescription!.lowercased().contains("decod"))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    // Different status codes produce different descriptions.
+    func test_httpStatus_differentCodes_differentDescriptions() {
+        XCTAssertNotEqual(
+            APIError.httpStatus(401).errorDescription,
+            APIError.httpStatus(500).errorDescription
+        )
     }
-
 }

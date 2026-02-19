@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct GitHub_RepositoriesApp: App {
+    private let useCase: FetchTrendingRepositoriesUseCase
+
+    init() {
+        let apiClient = GitHubAPIService()
+        let cacheStore = DiskCacheStore()
+        let repository = GitHubRepositoriesRepository(apiClient: apiClient, cacheStore: cacheStore)
+        self.useCase = DefaultFetchTrendingRepositoriesUseCase(repository: repository)
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RepoListView(viewModel: RepoListViewModel(useCase: useCase))
         }
     }
 }

@@ -6,30 +6,45 @@
 //
 
 import XCTest
+@testable import GitHub_Repositories
 
 final class DTOMappingTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // OwnerDTO.toDomain() maps all fields.
+    func test_ownerDTO_toDomain_mapsAllFields() {
+        let avatarURL = URL(string: "https://example.com/avatar.png")!
+        let dto = OwnerDTO(login: "alice", avatarUrl: avatarURL)
+        let domain = dto.toDomain()
+        
+        XCTAssertEqual(domain.login, "alice")
+        XCTAssertEqual(domain.avatarUrl, avatarURL)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    // RepositoryDTO.toDomain() maps all fields.
+    func test_repositoryDTO_toDomain_mapsAllFields() {
+        let dto = makeRepoDTO()
+        let domain = dto.toDomain()
+        
+        XCTAssertEqual(domain.id, dto.id)
+        XCTAssertEqual(domain.name, dto.name)
+        XCTAssertEqual(domain.fullName, dto.fullName)
+        XCTAssertEqual(domain.description, dto.description)
+        XCTAssertEqual(domain.stargazersCount, dto.stargazersCount)
+        XCTAssertEqual(domain.forksCount, dto.forksCount)
+        XCTAssertEqual(domain.language, dto.language)
+        XCTAssertEqual(domain.htmlUrl, dto.htmlUrl)
+        XCTAssertEqual(domain.owner.login, dto.owner.login)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    // nil description is preserved through mapping.
+    func test_repositoryDTO_toDomain_nilDescription() {
+        let dto = makeRepoDTO(description: nil)
+        XCTAssertNil(dto.toDomain().description)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    // nil language is preserved through mapping.
+    func test_repositoryDTO_toDomain_nilLanguage() {
+        let dto = makeRepoDTO(language: nil)
+        XCTAssertNil(dto.toDomain().language)
     }
-
 }
