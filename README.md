@@ -1,4 +1,5 @@
 GitHub Repositories iOS App
+
 An iOS application that allows users to search and browse GitHub repositories using the GitHub public API.
 The project is built using Clean Architecture principles, with clear separation of Data, Domain, and Presentation layers to ensure scalability, testability, and maintainability.
 
@@ -14,6 +15,7 @@ Features: -
 
 
 Architecture Overview: - 
+
 This project follows a Clean Architecture approach with layered separation:
 
 Layer Breakdown: -
